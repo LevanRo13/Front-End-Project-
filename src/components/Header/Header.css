@@ -1,14 +1,19 @@
 /* Ocultar el triángulo del NavDropdown */
 .navbar{
   padding: 10px;
-  background: #669cee;
+  background: #66daee;
+  font-size: small;
+  
 }
 .navbar .nav-item .nav-link::after {
     display: none;
   }
 
+.custom-form{
+  padding-right: 500px;}
+
 .custom-form .form-control{
-  padding: 0.05rem; /* Espaciado interno reducido */
+  padding: 0.05rem;
   width: 250px;
   font-size: smaller;
   text-align: center;

@@ -5,10 +5,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Header.css'
+import { FaSearch } from 'react-icons/fa';
+import { Col, Row } from 'react-bootstrap';
 
 const Header = () => {
   return (
-    <Navbar expand="lg" >
+    <Navbar expand="lg">
       <Container fluid>
       <NavDropdown title={
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -32,14 +34,21 @@ const Header = () => {
 
 
           </Nav>
-          <Form className="me-auto custom-form">
-            <Form.Control
-              type="search"
-              placeholder="¿Qué estás buscando?"  
-              className="me-2 form-control-sm"
-              aria-label="Search"
-            />
-          </Form>
+          <Form className="custom-form">
+      <Row className="align-items-center">
+        <Col xs={8}>
+          <Form.Control
+            type="search"
+            placeholder="¿Qué estás buscando?"
+            className="form-control-sm"
+            aria-label="Search"
+          />
+        </Col>
+        <Col xs={2} className="text-end">
+          <FaSearch className="search-icon" />
+        </Col>
+      </Row>
+    </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>
