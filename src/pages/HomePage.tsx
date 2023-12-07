@@ -1,4 +1,5 @@
 import CarouselHome from "../components/CarouselHome/CarouselHome"
+import Categories from "../components/Categories/categories"
 
 const HomePage = () => {
     return (
@@ -6,6 +7,11 @@ const HomePage = () => {
         <div style={{backgroundColor: "#333333"}}>
         <CarouselHome/>
         </div>
+        <br />
+        <div>
+        <Categories/>
+        </div>
+        
         </>
     )
 }
