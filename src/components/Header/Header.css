@@ -3,6 +3,7 @@
   padding: 10px;
   background: #66daee;
   font-size: small;
+  max-width: 200%;
   
 }
 .navbar .nav-item .nav-link::after {
@@ -18,3 +19,8 @@
   font-size: smaller;
   text-align: center;
 }
+.customNavbarUser{
+  right: 10dvw;
+  font-size: 18px;
+}
+

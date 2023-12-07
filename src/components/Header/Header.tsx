@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Header.css'
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaUserCircle } from 'react-icons/fa';
 import { Col, Row } from 'react-bootstrap';
 
 const Header = () => {
@@ -49,6 +49,27 @@ const Header = () => {
         </Col>
       </Row>
     </Form>
+
+    
+
+    <NavDropdown
+      title={
+        <Row className="align-items-center customNavbarUser">
+          <Col xs={2}>
+            <FaUserCircle className="bi bi-person-circle iconUser" />
+            <span>{'\u00A0'}{'\u00A0'}{'\u00A0'}Username</span>
+          </Col>
+        </Row>
+      }
+      id="navbarUser"
+      className='me-5 customNavbarUser'
+    >
+      <NavDropdown.Item href="#action3">Ingresá</NavDropdown.Item>
+      <NavDropdown.Item href="#action4">Registrate</NavDropdown.Item>
+      <NavDropdown.Divider />
+      <NavDropdown.Item href="#action5">Ingresá a tu cuenta</NavDropdown.Item>
+    </NavDropdown>
+    
         </Navbar.Collapse>
       </Container>
     </Navbar>
