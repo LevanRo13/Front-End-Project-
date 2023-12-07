@@ -5,5 +5,5 @@ export interface Categoria{
     imagenCategoria: string;
     estadoCategoria: boolean;
     fechaAltaCategoria: Date;
-    fechaBajaCategoria: Date;
+    fechaBajaCategoria?: Date;
 }

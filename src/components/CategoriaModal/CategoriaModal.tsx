@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useFormik } from "formik";
@@ -63,7 +62,7 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
       refreshData(prevState => !prevState);
     } catch (error) {
       console.error("Error saving categoria:", error);
-      toast.error('An error occurred');
+      toast.error('Ha ocurrido un error');
     }
   };
 
@@ -71,7 +70,7 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
     try {
       if (categoria) {
         await CategoriaService.deleteCategoria(categoria.id!);
-        toast.success("Categoria deleted successfully", {
+        toast.success("Categoria eliminada con éxito", {
           position: "top-center",
         });
 
@@ -80,17 +79,16 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
       }
     } catch (error) {
       console.error("Error deleting categoria:", error);
-      toast.error("An error occurred while deleting the categoria");
+      toast.error("Ha ocurrido un error al eliminar la categoria");
     }
   };
 
   const handleRestore = async () => {
     try {
-      // Restore the deleted categoria
       if (categoria) {
-        categoria.deleted = false;
+        categoria.fechaBajaCategoria = new Date;
         await CategoriaService.updateCategoria(categoria.id!, categoria);
-        toast.success("Categoria restored successfully", {
+        toast.success("Categoría restaurada con éxito", {
           position: "top-center",
         });
 
@@ -99,7 +97,7 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
       }
     } catch (error) {
       console.error("Error restoring categoria:", error);
-      toast.error("An error occurred while restoring the categoria");
+      toast.error("Ha ocurrido un error al restaurar la categoría");
     }
   };
 
@@ -111,17 +109,14 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
             <Modal.Title>{title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>
-              Are you sure you want to delete the categoria <br />
-              <strong>{categoria.nombreCategoria}</strong>?
-            </p>
+            <p>¿Está seguro que desea dar de baja la categoría <strong>{categoria.nombreCategoria}</strong>?</p>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={onHide}>
-              Cancel
+              Cancelar
             </Button>
             <Button variant="danger" onClick={handleDelete}>
-              Delete
+              Dar de baja
             </Button>
           </Modal.Footer>
         </Modal>
@@ -133,56 +128,73 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
             <Modal.Title>{title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>
-              Are you sure you want to restore the categoria <br />
-              <strong>{categoria.nombreCategoria}</strong>?
+            <p> ¿Está seguro que desea dar de alta la categoria
+              <br /> <strong> {categoria.nombreCategoria} </strong> ?
             </p>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={onHide}>
-              Cancel
+              Cancelar
             </Button>
             <Button variant="success" onClick={handleRestore}>
-              Restore
+              Dar de alta
             </Button>
           </Modal.Footer>
         </Modal>
       )}
 
-      {modalType !== ModalType.DELETE && modalType !== ModalType.RESTORE && (
-        <Modal show={show} onHide={onHide} centered backdrop="static">
-          <Modal.Header closeButton>
-            <Modal.Title>{title}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form onSubmit={formik.handleSubmit}>
-              <Form.Group controlId="formDenominacion">
-                <Form.Label>Denominacion</Form.Label>
-                <Form.Control
-                  name="denominacion"
-                  type="text"
-                  value={formik.values.nombreCategoria || ''}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  isInvalid={Boolean(formik.errors.nombreCategoria && formik.touched.nombreCategoria)}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {formik.errors.nombreCategoria}
-                </Form.Control.Feedback>
-              </Form.Group>
+{modalType !== ModalType.DELETE && modalType !== ModalType.RESTORE && (
+    <Modal show={show} onHide={onHide} centered backdrop="static">
+      <Modal.Header closeButton>
+        <Modal.Title>{title}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
 
-              <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>
-                  Cancel
-                </Button>
-                <Button variant="primary" type="submit" disabled={!formik.isValid}>
-                  Save
-                </Button>
-              </Modal.Footer>
-            </Form>
-          </Modal.Body>
-        </Modal>
-      )}
+        <Form onSubmit={formik.handleSubmit}>
+          <Form.Group controlId="formNombreCategoria">
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control
+              name="nombreCategoria"
+              type="text"
+              value={formik.values.nombreCategoria || ''}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              isInvalid={Boolean(formik.errors.nombreCategoria && formik.touched.nombreCategoria)}
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.nombreCategoria}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group controlId="formFechaAltaCategoria">
+            <Form.Label>Fecha Alta</Form.Label>
+            <Form.Control 
+              name="fechaAlta"
+              type="date"
+              value={formik.values.fechaAltaCategoria?.toString() || ''}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              isInvalid={Boolean(formik.errors.fechaAltaCategoria && formik.touched.fechaAltaCategoria)}
+            />
+        <Form.Control.Feedback type="invalid">
+          {formik.errors.fechaAltaCategoria?.toDateString() || ""}
+        </Form.Control.Feedback>
+          </Form.Group>
+
+    
+          <Modal.Footer>
+            <Button variant="secondary" onClick={onHide}>
+              Cancelar
+            </Button>
+            <Button variant="primary" type="submit" disabled={!formik.isValid}>
+              Guardar
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal.Body>
+    </Modal>
+    )};
+      
     </>
   );
 };
