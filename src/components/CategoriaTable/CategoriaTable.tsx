@@ -30,6 +30,11 @@ const CategoriaTable = () => {
       id: 0,
       nombreCategoria: "",
       descripcionCategoria: "",
+      imagenCategoria: "",
+      estadoCategoria: true,
+      fechaAltaCategoria: new Date(),
+      fechaBajaCategoria: new Date(),
+
     };
   };
 
@@ -105,7 +110,7 @@ const CategoriaTable = () => {
           onHide={() => setShowModal(false)}
           title={title}
           modalType={modalType}
-          cat={categoria}
+          categoria={categoria}
           refreshData={setRefreshData}
         />
       )}

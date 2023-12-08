@@ -177,7 +177,7 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
               isInvalid={Boolean(formik.errors.fechaAltaCategoria && formik.touched.fechaAltaCategoria)}
             />
         <Form.Control.Feedback type="invalid">
-          {formik.errors.fechaAltaCategoria?.toDateString() || ""}
+        {formik.values.fechaAltaCategoria?.toString() || ''}
         </Form.Control.Feedback>
           </Form.Group>
 
