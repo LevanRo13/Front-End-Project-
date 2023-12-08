@@ -7,8 +7,11 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Header.css'
 import { FaSearch, FaUserCircle } from 'react-icons/fa';
 import { Col, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+
 
 const Header = () => {
+  const navigate= useNavigate();
   return (
     <Navbar expand="lg">
       <Container fluid>
@@ -28,7 +31,7 @@ const Header = () => {
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
             <Nav.Link href="#action1" className='me-5'>Logo</Nav.Link>
-            <Nav.Link href="#action2" className='me-2'>Categorias</Nav.Link>
+            <Nav.Link onClick={()=> navigate('/categorias')} className='me-2'>Categorias</Nav.Link>
             <Nav.Link href="#action3" className='me-2'>Productos</Nav.Link>
             <Nav.Link href="#action3" className='me-2'>Conocenos</Nav.Link>
 
