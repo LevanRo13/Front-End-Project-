@@ -3,9 +3,14 @@ import { Button } from 'primereact/button';
 import { Carousel } from 'primereact/carousel';
 import { ProductService } from '../../services/ProductService';
 import type { Demo } from '../../types/types';
+import { Categoria } from '../../types/Categoria';
+import { CategoriaService } from '../../services/CategoriaService';
 
 const Categories = () => {
-    const [categories, setCategories] = useState<Demo.Category[]>([]);
+    const [categoria, setCategoria] = useState<Categoria[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [refreshData, setRefreshData] = useState(false);
+
 
     const carouselResponsiveOptions = [
         {
@@ -36,15 +41,21 @@ const Categories = () => {
     ];
 
     useEffect(() => {
-        ProductService.getCategories().then((categories) => setCategories(categories));
-    }, []);
+        const fetchCategorias = async () => {
+          const categorias = await CategoriaService.getCategorias();
+          setCategoria(categorias);
+          setIsLoading(false);
+        };
     
-    const carouselItemTemplate = (category: Demo.Category) => {
+        fetchCategorias();
+      }, [refreshData]);
+    
+    const carouselItemTemplate = (categoria: Categoria) => {
         return (
             <div className="category-card">
                 <div className="card-content">
-                    <img src={`/demo/images/category/${category.image}`} alt={category.name} className="category-image" />
-                    <h4 className="category-name">{category.name}</h4>
+                    <img src={`/demo/images/category/${categoria.urlImagen}`} alt={categoria.nombreCategoria} className="category-image" />
+                    <h4 className="category-name">{categoria.nombreCategoria}</h4>
                 </div>
             </div>
         );
@@ -60,7 +71,7 @@ const Categories = () => {
                 <div className="card">
                     <h5>Browse By Category</h5>
                     <Carousel
-                        value={categories}
+                        value={categoria}
                         numVisible={5}
                         numScroll={5}
                         responsiveOptions={carouselResponsiveOptions}

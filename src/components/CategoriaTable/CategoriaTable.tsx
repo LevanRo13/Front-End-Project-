@@ -5,8 +5,7 @@ import { Button, Table } from "react-bootstrap";
 import Loader from "../Loader/Loader";
 import { ModalType } from "../../types/ModalType";
 import CategoriaModal from "../CategoriaModal/CategoriaModal";
-import { EditButton } from "../EditButton/EditButton";
-import { DeleteButton } from "../DeleteButton/DeleteButton";
+import { ArrowDown, ArrowUp, Pencil } from "react-bootstrap-icons";
 
 const CategoriaTable = () => {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
@@ -29,11 +28,9 @@ const CategoriaTable = () => {
     return {
       id: 0,
       nombreCategoria: "",
-      descripcionCategoria: "",
-      imagenCategoria: "",
-      estadoCategoria: true,
-      fechaAltaCategoria: new Date(),
-      fechaBajaCategoria: new Date(),
+      urlImagen: "",
+      fechaAlta: new Date(),
+      fechaBaja: null,
 
     };
   };
@@ -48,22 +45,20 @@ const CategoriaTable = () => {
 
   const handleClick = (
     newTitle: string,
-    cat: Categoria,
+    categoria: Categoria,
     modal: ModalType
   ) => {
     setTitle(newTitle);
     setModalType(modal);
-    setCategoria(cat);
+    setCategoria(categoria);
     setShowModal(true);
   };
 
   return (
     <div className="m-3">
       <Button
-        onClick={() =>
-          handleClick("Nueva Categoría", initializeNewCategoria(), ModalType.CREATE)
-        }
-      >
+        onClick={() => handleClick("Nueva Categoría", 
+          initializeNewCategoria(), ModalType.CREATE)}>
         Nueva Categoría
       </Button>
 
@@ -74,29 +69,31 @@ const CategoriaTable = () => {
           <thead>
             <tr>
               <th>Nombre</th>
-              <th>Descripción</th>
-              <th>Editar</th>
-              <th>Borrar</th>
+              <th>Fecha Alta</th>
+              <th>Imagen</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {categorias.map((categoria) => (
-              <tr key={categoria.id}>
+              <tr key={categoria.id} className={categoria.fechaBaja ? 'table-danger' : ''}>
                 <td>{categoria.nombreCategoria}</td>
-                <td>{categoria.descripcionCategoria}</td>
+                <td>{categoria.fechaAlta.toString()}</td>
+                 <td> <img src={categoria.urlImagen} alt={categoria.nombreCategoria} style={{width: '50px'}} /> </td>
                 <td>
-                  <EditButton
-                    onClick={() =>
-                      handleClick("Editar categoría", categoria, ModalType.UPDATE)
-                    }
-                  />
-                </td>
-                <td>
-                  <DeleteButton
-                    onClick={() =>
-                      handleClick("Borrar categoría", categoria, ModalType.DELETE)
-                    }
-                  />
+                <Button variant={"light"} onClick={() => handleClick("Editar categoria", 
+                categoria, ModalType.UPDATE)}>
+                      <Pencil color='orange'/></Button>
+                          {categoria.fechaBaja !== null && (
+                                <Button variant={"light"} onClick={() => handleClick("Dar de alta categoria", 
+                                   categoria, ModalType.RESTORE)}><ArrowUp color='green'/>
+                                </Button>
+                            )}
+                          {categoria.fechaBaja === null && (
+                                <Button variant={"light"} onClick={() => handleClick("Dar de baja categoria", 
+                                  categoria, ModalType.DELETE)}><ArrowDown color='red'/>
+                                </Button>
+                            )}
                 </td>
               </tr>
             ))}

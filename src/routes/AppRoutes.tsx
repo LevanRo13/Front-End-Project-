@@ -12,7 +12,7 @@ const AppRoutes: React.FC = () => {
 
     return (
         <Routes>
-            <Route path="/" element={<HomePage/>}/>
+            <Route path="/" element={<HomePage/>}></Route>
             <Route element={<Login />} path="/login" />
             <Route element={<Registro />} path="/registro" /> 
             <Route element={<CategoriaPage />} path="/categorias" />

@@ -1,9 +1,7 @@
-export interface Categoria{
+export type Categoria = {
     id: number;
     nombreCategoria: string;
-    descripcionCategoria: string;
-    imagenCategoria: string;
-    estadoCategoria: boolean;
-    fechaAltaCategoria: Date;
-    fechaBajaCategoria?: Date;
+    urlImagen: string;
+    fechaAlta: Date;
+    fechaBaja: Date | null;
 }

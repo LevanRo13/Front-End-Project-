@@ -1,9 +1,11 @@
 import CategoriaTable from "../components/CategoriaTable/CategoriaTable"
 
-const CategoriaPage = () => {
+export const CategoriaPage = () => {
   return (
+    <>
     <CategoriaTable/>
+    </>
   )
 }
 
-export default CategoriaPage
+export default CategoriaPage; 

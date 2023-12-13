@@ -1,22 +1,27 @@
 import { Categoria } from "../types/Categoria";
 
-const BASE_URL = 'https://localhost:8080';
+const BASE_URL = 'http://localhost:9000/api/v1';
 
 export const CategoriaService = {
     getCategorias: async (): Promise<Categoria[]> => {
-        const response = await fetch(`${BASE_URL}/categories`);
+        const response = await fetch(`${BASE_URL}/Categoria`,{
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
+
         const data = await response.json();
         return data;
     },
 
     getCategoria: async (id: number): Promise<Categoria> => {
-        const response = await fetch(`${BASE_URL}/categories/${id}`);
+        const response = await fetch(`${BASE_URL}/Categoria/${id}`);
         const data = await response.json();
         return data;
     },
 
     createCategoria: async (categoria: Categoria): Promise<Categoria> => {
-        const response = await fetch(`${BASE_URL}/categories`, {
+        const response = await fetch(`${BASE_URL}/Categoria`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -29,7 +34,7 @@ export const CategoriaService = {
     },
 
     updateCategoria: async (id: number, categoria: Categoria): Promise<Categoria> => {
-        const response = await fetch(`${BASE_URL}/categories/${id}`, {
+        const response = await fetch(`${BASE_URL}/Categoria/${id}`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -42,7 +47,7 @@ export const CategoriaService = {
     },
 
     deleteCategoria: async (id: number): Promise<void> => {
-        await fetch(`${BASE_URL}/categories/${id}`, {
+        await fetch(`${BASE_URL}/Categoria/${id}`, {
             method: "DELETE"
         });
     }

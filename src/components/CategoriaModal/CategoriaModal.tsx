@@ -69,8 +69,10 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
   const handleDelete = async () => {
     try {
       if (categoria) {
-        await CategoriaService.deleteCategoria(categoria.id!);
-        toast.success("Categoria eliminada con éxito", {
+        // Actualizar la fecha de baja
+        categoria.fechaBaja = new Date();
+        await CategoriaService.updateCategoria(categoria.id!, categoria);
+        toast.success("Categoria dada de baja con éxito", {
           position: "top-center",
         });
 
@@ -86,7 +88,7 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
   const handleRestore = async () => {
     try {
       if (categoria) {
-        categoria.fechaBajaCategoria = new Date;
+        categoria.fechaBaja= null;
         await CategoriaService.updateCategoria(categoria.id!, categoria);
         toast.success("Categoría restaurada con éxito", {
           position: "top-center",
@@ -109,7 +111,9 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
             <Modal.Title>{title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>¿Está seguro que desea dar de baja la categoría <strong>{categoria.nombreCategoria}</strong>?</p>
+            <p>¿Está seguro que desea dar de baja la categoría 
+              <br /> <strong>{categoria.nombreCategoria}</strong>?
+            </p>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={onHide}>
@@ -166,18 +170,18 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group controlId="formFechaAltaCategoria">
+          <Form.Group controlId="formFechaAlta">
             <Form.Label>Fecha Alta</Form.Label>
             <Form.Control 
               name="fechaAlta"
               type="date"
-              value={formik.values.fechaAltaCategoria?.toString() || ''}
+              value={formik.values.fechaAlta || ''}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              isInvalid={Boolean(formik.errors.fechaAltaCategoria && formik.touched.fechaAltaCategoria)}
+              isInvalid={Boolean(formik.errors.fechaAlta && formik.touched.fechaAlta)}
             />
         <Form.Control.Feedback type="invalid">
-        {formik.values.fechaAltaCategoria?.toString() || ''}
+        {formik.errors.fechaAlta}
         </Form.Control.Feedback>
           </Form.Group>
 
