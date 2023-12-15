@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Categoria } from "../../types/Categoria";
-import { CategoriaService } from "../../services/CategoriaService";
 import { Button, Table } from "react-bootstrap";
 import Loader from "../Loader/Loader";
 import { ModalType } from "../../types/ModalType";
 import CategoriaModal from "../CategoriaModal/CategoriaModal";
 import { ArrowDown, ArrowUp, Pencil } from "react-bootstrap-icons";
+import CategoriaService from "../../services/CategoriaService";
 
 const CategoriaTable = () => {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
@@ -14,7 +14,7 @@ const CategoriaTable = () => {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-      const categorias = await CategoriaService.getCategorias();
+      const categorias = await CategoriaService.getAll();
       setCategorias(categorias);
       setIsLoading(false);
     };

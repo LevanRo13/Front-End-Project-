@@ -4,12 +4,15 @@ import { Carousel } from 'primereact/carousel';
 import { ProductService } from '../../services/ProductService';
 import type { Demo } from '../../types/types';
 import { Categoria } from '../../types/Categoria';
-import { CategoriaService } from '../../services/CategoriaService';
+import './categories.css'
+import { Navigate, useNavigate } from 'react-router-dom';
+import CategoriaService from '../../services/CategoriaService';
 
 const Categories = () => {
     const [categoria, setCategoria] = useState<Categoria[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [refreshData, setRefreshData] = useState(false);
+    const navigate= useNavigate();
 
 
     const carouselResponsiveOptions = [
@@ -42,7 +45,7 @@ const Categories = () => {
 
     useEffect(() => {
         const fetchCategorias = async () => {
-          const categorias = await CategoriaService.getCategorias();
+          const categorias = await CategoriaService.getAll();
           setCategoria(categorias);
           setIsLoading(false);
         };
@@ -52,10 +55,10 @@ const Categories = () => {
     
     const carouselItemTemplate = (categoria: Categoria) => {
         return (
-            <div className="category-card">
+            <div className="category-card" >
                 <div className="card-content">
-                    <img src={`/demo/images/category/${categoria.urlImagen}`} alt={categoria.nombreCategoria} className="category-image" />
-                    <h4 className="category-name">{categoria.nombreCategoria}</h4>
+                    <img src={`${categoria.urlImagen}`} height={"150rem"} width={"150rem"} alt={categoria.nombreCategoria} className="category-image" />
+                    <h4 className="category-name">{categoria.nombreCategoria} </h4>
                 </div>
             </div>
         );
@@ -69,7 +72,7 @@ const Categories = () => {
         <div className="grid p-fluid">
             <div className="col-12">
                 <div className="card">
-                    <h5>Browse By Category</h5>
+                    <h5 className="category-name">Busque su categoria</h5>
                     <Carousel
                         value={categoria}
                         numVisible={5}
@@ -80,7 +83,8 @@ const Categories = () => {
                 </div>
             </div>
             <div className="col-12 mt-3">
-                <Button label="Ver todas las categorías" onClick={handleVerTodasCategorias} />
+                <Button label="Ver todas las categorías" onClick={()=> navigate('/categorias')} />
+                
             </div>
         </div>
     );

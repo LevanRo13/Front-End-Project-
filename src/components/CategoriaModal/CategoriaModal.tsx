@@ -3,9 +3,10 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { useFormik } from "formik";
 import { toast } from 'react-toastify';
 
-import { CategoriaService } from "../../services/CategoriaService";
+
 import { ModalType } from "../../types/ModalType";
 import { Categoria } from "../../types/Categoria";
+import CategoriaService from "../../services/CategoriaService";
 
 type CategoriaModalProps = {
   show: boolean;
@@ -29,7 +30,7 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const categorias = await CategoriaService.getCategorias();
+        const categorias = await CategoriaService.getAll();
         setCategorias(categorias);
       } catch (error) {
         console.error("Error fetching categorias:", error);
@@ -46,12 +47,13 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
     onSubmit: (formData: Categoria) => handleSave(formData),
   });
 
+  
   const handleSave = async (formData: Categoria) => {
     try {
       if (modalType === ModalType.CREATE) {
-        await CategoriaService.createCategoria(formData);
+        await CategoriaService.create(formData);
       } else if (modalType === ModalType.UPDATE) {
-        await CategoriaService.updateCategoria(formData.id!, formData);
+        await CategoriaService.update(formData.id!, formData);
       }
 
       toast.success(modalType === ModalType.CREATE ? "Categoria Creada" : "Categoria Actualizada", {
@@ -71,7 +73,7 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
       if (categoria) {
         // Actualizar la fecha de baja
         categoria.fechaBaja = new Date();
-        await CategoriaService.updateCategoria(categoria.id!, categoria);
+        await CategoriaService.update(categoria.id!, categoria);
         toast.success("Categoria dada de baja con éxito", {
           position: "top-center",
         });
@@ -89,7 +91,7 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
     try {
       if (categoria) {
         categoria.fechaBaja= null;
-        await CategoriaService.updateCategoria(categoria.id!, categoria);
+        await CategoriaService.update(categoria.id!, categoria);
         toast.success("Categoría restaurada con éxito", {
           position: "top-center",
         });
@@ -155,6 +157,7 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
       <Modal.Body>
 
         <Form onSubmit={formik.handleSubmit}>
+
           <Form.Group controlId="formNombreCategoria">
             <Form.Label>Nombre</Form.Label>
             <Form.Control
@@ -167,6 +170,21 @@ const CategoriaModal: React.FC<CategoriaModalProps> = ({
             />
             <Form.Control.Feedback type="invalid">
               {formik.errors.nombreCategoria}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group controlId="formurlImagen">
+            <Form.Label>Url de la imagen</Form.Label>
+            <Form.Control
+              name="urlImagen"
+              type="text"
+              value={formik.values.urlImagen || ''}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              isInvalid={Boolean(formik.errors.urlImagen && formik.touched.urlImagen)}
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.urlImagen}
             </Form.Control.Feedback>
           </Form.Group>
 
