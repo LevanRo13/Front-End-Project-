@@ -1,26 +1,63 @@
-/* Ocultar el triángulo del NavDropdown */
-.navbar{
-  padding: 10px;
-  background: #66daee;
+.custom-navbar {
+  background: rgba(0, 204, 217, 0.29);
+  max-width: 100%;
+  font-family: 'Inter', sans-serif;
   font-size: small;
-  max-width: 200%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  padding-right: 48px;
+}
+
+.custom-nav {
+  display: flex;
+  align-items: center;
+  margin-right: auto; /* Mueve .custom-containernavlink a la izquierda */
   
 }
-.navbar .nav-item .nav-link::after {
-    display: none;
-  }
 
-.custom-form{
-  padding-right: 500px;}
+.custom-containernavlink {
+  display: flex; /* Hace que los elementos dentro de custom-containernavlink se muestren en línea */
+  
+  transition: all 2.5s;
+}
 
-.custom-form .form-control{
-  padding: 0.05rem;
+.custom-navlink {
+  margin-left: 8px;
+  transform: scale(1.1);
+  -webkit-text-stroke: 0.3px black; /* WebKit browsers (Safari, Chrome) */
+  text-stroke: 100px black; /* Standard syntax */
+}
+
+.custom-form {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Hace que el formulario ocupe el espacio restante */
+  justify-content: center; /* Centra horizontalmente el formulario */
+}
+
+.form-control,
+.custom-input {
+  padding: 0.25rem;
   width: 250px;
   font-size: smaller;
   text-align: center;
-}
-.customNavbarUser{
-  right: 10dvw;
-  font-size: 18px;
+  display: flex;
+  align-items: center;
 }
 
+.custom-input {
+  margin-right: 0.5rem; /* Emula me-2 */
+  height: calc(1.5em + 0.5rem + 2px);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+
+.customNavbarUser {
+  font-size: 18px;
+  margin-left: 32px;
+  nav-down:current;
+}

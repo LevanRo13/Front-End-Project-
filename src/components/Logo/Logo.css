@@ -1,0 +1,47 @@
+.logo-container {
+    display: flex;
+    padding: 0 8px;
+    cursor: pointer;  
+  }
+  
+  .lines-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 8px;
+    margin-top: 4px;
+    margin-left: 16px;
+  }
+  .logo-container .lines-container div{
+    transition: all 2.5s;
+  }
+  .logo-container .lines-container:hover{
+    transform: scale(1.1);
+    }
+  
+  .line {
+    height: 5px;
+    width: 36px;
+    margin-bottom:7px;
+    border-radius: 16px;
+  }
+  
+  .cyan {
+    background-color:#00CCD9;  
+  }
+  
+  .yellow {
+    background-color:#FFF615;
+  }
+  
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+    font-size: small;
+  }
+  
+  .text {
+    color: #00CCD9;
+    -webkit-text-stroke: 0.25px black; /* WebKit browsers (Safari, Chrome) */
+    text-stroke: 100px black; /* Standard syntax */
+  }
