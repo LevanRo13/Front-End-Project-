@@ -7,9 +7,9 @@
   .lines-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin-right: 8px;
-    margin-top: 4px;
-    margin-left: 16px;
+    
   }
   .logo-container .lines-container div{
     transition: all 2.5s;
@@ -22,6 +22,11 @@
     height: 5px;
     width: 36px;
     margin-bottom:7px;
+    border-radius: 16px;
+  }
+  .line1 {
+    height: 5px;
+    width: 36px;
     border-radius: 16px;
   }
   
@@ -44,4 +49,5 @@
     color: #00CCD9;
     -webkit-text-stroke: 0.25px black; /* WebKit browsers (Safari, Chrome) */
     text-stroke: 100px black; /* Standard syntax */
+    
   }
